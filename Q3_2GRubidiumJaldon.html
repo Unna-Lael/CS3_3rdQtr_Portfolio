@@ -248,18 +248,13 @@ function createHeart() {
   const heart = document.createElement('div');
   heart.className = 'heart';
 
-  // Random horizontal position
   heart.style.left = Math.random() * window.innerWidth + 'px';
 
-  // Random vertical start position (start slightly below the viewport)
   heart.style.top = window.innerHeight + Math.random() * 50 + 'px';
-
-  // Random size
+  
   const size = 10 + Math.random() * 15;
   heart.style.width = size + 'px';
   heart.style.height = size + 'px';
-
-  // Random animation duration
   heart.style.animationDuration = (4 + Math.random() * 4) + 's';
 
   heartsContainer.appendChild(heart);
