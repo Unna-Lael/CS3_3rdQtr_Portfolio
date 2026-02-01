@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q3 2nd Graded</title>
+
+<style>
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", "Arial", sans-serif;
+  background: #fff0f6;
+  position: relative;
+}
+
+/* ===== HEARTS ===== */
+#hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ff4d94;
+  transform: rotate(45deg);
+  animation-name: floatUp;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  opacity: 0.7;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ff4d94;
+  border-radius: 50%;
+}
+
+.heart:before { top: -7.5px; left: 0; }
+.heart:after { left: -7.5px; top: 0; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+}
+
+/* ===== FORM ===== */
+form, .container {
+  position: relative;
+  z-index: 10;
+  max-width: 650px;
+  margin: 50px auto;
+  background: rgba(255, 240, 246, 0.95);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+h1 {
+  text-align: center;
+  color: #d63384;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+fieldset {
+  border: 2px solid #ff99c8;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: bold;
+  color: #c9184a;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  color: #6a1a33;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1.5px solid #ffb3d9;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+textarea { resize: vertical; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ff4d94;
+  box-shadow: 0 0 8px rgba(255, 77, 148, 0.6);
+  background-color: #fff7fb;
+}
+
+.invalid {
+  border: 2px solid #ff1a1a;
+  background-color: #ffe6e6;
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+.radio-group input { width: auto; margin-right: 5px; }
+
+/* ===== BUTTONS ===== */
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button[type="reset"] { background-color: #adb5bd; color: white; }
+
+/* Submit button colorful */
+button[type="button"]:first-of-type {
+  background: linear-gradient(135deg, #ff6ab4, #ff2d95);
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(255,77,148,0.4);
+}
+
+button[type="button"]:first-of-type:hover {
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(255,77,148,0.5);
+  background: linear-gradient(135deg, #ff2d95, #ff6ab4);
+}
+
+/* Page-switch buttons */
+button.page-switch {
+  background: linear-gradient(135deg, #ff6ab4, #ff2d95);
+  color: white;
+  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+  box-shadow: 0 5px 15px rgba(255,77,148,0.4);
+  margin-left: 10px;
+}
+
+button.page-switch:hover {
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(255,77,148,0.5);
+  background: linear-gradient(135deg, #ff2d95, #ff6ab4);
+}
+
+/* ===== VIEW SIGNUPS CARD ===== */
+.container {
+  display: none;
+  max-width: 950px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#total { color: #c9184a; font-weight: bold; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+th {
+  background: #ff4d94;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ffb3d9;
+}
+
+tbody tr { animation: rowFade 0.4s ease; }
+tbody tr:nth-child(even) { background: #ffe6f2; }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+  margin-top: 20px;
+  text-align: center;
+  color: #c9184a;
+  font-weight: bold;
+}
+
+a {
+  display: inline-block;
+  margin-top: 25px;
+  color: #ff4d94;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<!-- ===== SIGNUP FORM ===== -->
+<form id="signupForm">
+
+  <h1>Club Application Form</h1>
+
+  <!-- FIELDSET 1 -->
+  <fieldset>
+    <legend>Your Student Profile!</legend>
+
+    <label>
+      Student ID:
+      <input type="number" name="studentID" required>
+    </label>
+
+    <label>
+      Full Name:
+      <input type="text" name="fullname" required onblur="checkEmpty(this)">
+    </label>
+
+    <label>
+      Birthday:
+      <input type="date" name="birthday" required>
+    </label>
+
+    <label>
+      Email Address:
+      <input type="email" name="email" required>
+    </label>
+  </fieldset>
+
+  <!-- FIELDSET 2 -->
+  <fieldset>
+    <legend>Your Club Details</legend>
+
+    <label>
+      Mobile Phone:
+      <input type="text" name="mobile" required onblur="checkEmpty(this)">
+    </label>
+
+    <label>
+      Grade Level:
+      <select name="grade" required>
+        <option value="">Select Grade Level</option>
+        <option value="lv7">Grade 7</option>
+        <option value="lv8">Grade 8</option>
+        <option value="lv9">Grade 9</option>
+        <option value="lv10">Grade 10</option>
+      </select>
+    </label>
+
+    <label class="radio-group">
+      Intern / Extern:
+      <br>
+        <input type="radio" name="status" value="Intern" required> Intern
+      <input type="radio" name="status" value="Extern"> Extern
+
+    </label>
+
+    <label>
+      Preferred Organization:
+      <select name="club" required>
+        <option value="">Choose One</option>
+        <option value="debate">Debate Club</option>
+        <option value="arts">Art Club</option>
+        <option value="literature">Literature Club</option>
+        <option value="cs">Robotics/CS Club</option>
+        <option value="science">Science Club</option>
+        <option value="music">Music Club</option>
+        <option value="math">Math Club</option>
+        <option value="languages">Foreign Languages Club</option>
+        <option value="sports">Sports Club</option>
+      </select>
+    </label>
+
+    <label>
+      Why do you want to join this club?
+      <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
+    </label>
+  </fieldset>
+
+  <button type="button" onclick="submitForm()">Submit</button>
+  <button type="reset">Reset</button>
+  <button type="button" onclick="showViewPage()" class="page-switch">View Club Sign-Ups</button>
+
+</form>
+
+<!-- ===== VIEW SIGNUPS ===== -->
+<div id="viewPage" class="container">
+  <h1>Club Sign-Ups</h1>
+
+  <div class="controls">
+    <label>
+      Select Your Club:
+      <select id="clubFilter">
+        <option value="ALL">ALL</option>
+        <option value="debate">Debate Club</option>
+        <option value="arts">Art Club</option>
+        <option value="literature">Literature Club</option>
+        <option value="cs">Robotics / CS Club</option>
+        <option value="science">Science Club</option>
+        <option value="music">Music Club</option>
+        <option value="math">Math Club</option>
+        <option value="languages">Foreign Languages Club</option>
+        <option value="sports">Sports Club</option>
+      </select>
+    </label>
+    <p id="total"></p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Club</th>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Grade</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Intern / Extern</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <p class="message" id="message"></p>
+  <button onclick="showSignupPage()" class="page-switch">Back to Form</button>
+</div>
+
+<script>
+/* ===== HEARTS ===== */
+const heartsContainer = document.getElementById('hearts');
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.top = window.innerHeight + Math.random() * 50 + 'px';
+  const size = 10 + Math.random() * 15;
+  heart.style.width = size + 'px';
+  heart.style.height = size + 'px';
+  heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+  heartsContainer.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 300);
+
+/* ===== FORM FUNCTIONS ===== */
+function checkEmpty(el) {
+  if (el.value.trim() === "") {
+    el.classList.add("invalid");
+  } else {
+    el.classList.remove("invalid");
+  }
+}
+
+function submitForm() {
+  const form = document.getElementById("signupForm");
+  const formData = {
+    studentID: form.studentID.value,
+    fullname: form.fullname.value,
+    birthday: form.birthday.value,
+    email: form.email.value,
+    mobile: form.mobile.value,
+    grade: form.grade.value,
+    status: form.status.value,
+    club: form.club.value,
+    reason: form.reason.value
+  };
+
+  for (let key in formData) {
+    if (!formData[key]) {
+      alert("Please fill all fields!");
+      return;
+    }
+  }
+
+  let data = JSON.parse(localStorage.getItem("clubSignups")) || [];
+  data.push(formData);
+  localStorage.setItem("clubSignups", JSON.stringify(data));
+  alert("Submitted!");
+  form.reset();
+}
+
+/* ===== PAGE SWITCHING ===== */
+function showViewPage() {
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('viewPage').style.display = 'block';
+  render(filter.value);
+}
+
+function showSignupPage() {
+  document.getElementById('viewPage').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'block';
+}
+
+/* ===== SIGNUP TABLE ===== */
+const tbody = document.getElementById("tableBody");
+const message = document.getElementById("message");
+const total = document.getElementById("total");
+const filter = document.getElementById("clubFilter");
+
+function render(selected) {
+  const data = JSON.parse(localStorage.getItem("clubSignups")) || [];
+  tbody.innerHTML = "";
+  message.textContent = "";
+  total.textContent = "";
+
+  if (!data || data.length === 0) {
+    message.textContent = "No sign-ups have been saved yet 💔";
+    return;
+  }
+
+  const filtered = selected === "ALL" ? data : data.filter(s => s.club === selected);
+
+  if (filtered.length === 0) {
+    message.textContent = "No students signed up for this club ✨";
+    total.textContent = "Total Signup : 0";
+    return;
+  }
+
+  filtered.forEach(s => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${s.club}</td>
+      <td>${s.studentID}</td>
+      <td>${s.fullname}</td>
+      <td>${s.grade}</td>
+      <td>${s.email}</td>
+      <td>${s.mobile}</td>
+      <td>${s.status}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Correct plural for total
+  total.textContent = `Total Signup${filtered.length > 1 ? 's' : ''} : ${filtered.length}`;
+}
+
+filter.addEventListener("change", () => render(filter.value));
+</script>
+
+</body>
+</html>
